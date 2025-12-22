@@ -50,10 +50,6 @@ patch -p1 < $patch_name
 echo "Look, there should be 10 patches"
 read -p "Press [Enter] key to continue..." tmp
 
-# NOTE: mb move it to another location
-touch /etc/modprobe.d/inteldsp.conf
-setopt /etc/modprobe.d/inteldsp.conf snd_intel_dspcfg.dsp_driver 3
-
 cat /proc/config.gz | gunzip > .config
 
 setopt .config CONFIG_SND_HDA_SCODEC_AW88399 m

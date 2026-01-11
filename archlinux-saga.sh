@@ -7,8 +7,8 @@ read -p "Press [Enter] key to continue..." hwX
 # git clone https://github.com/nadimkobeissi/16iax10h-linux-sound-saga.git
 
 setopt() {
-# look for/create parametr in file and assigns value to it
-# syntax setopt <file> <parametr> <value>
+  # look for/create parametr in file and assigns value to it
+  # syntax setopt <file> <parametr> <value>
   file=$1
   key=$2
   val=$3
@@ -16,26 +16,26 @@ setopt() {
   if grep -q "^$key=" "$file"; then
     sed -i "s/^$key=.*/$key=$val/" "$file"
   else
-    echo "$key=$val" >> "$file"
+    echo "$key=$val" >>"$file"
   fi
   echo "$key=$val option set"
 }
 
-current_kernel_version="linux-$(sed 's+-.*++g' <<< "$(uname -r)")"
+current_kernel_version="linux-$(sed 's+-.*++g' <<<"$(uname -r)")"
 current_kernel_tarball="$current_kernel_version.tar.xz"
 patch_name="16iax10h-audio-$current_kernel_version.patch"
 
-if [ -s "fix/patches/$patch_name" ] ; then
+if [ -s "fix/patches/$patch_name" ]; then
   echo "patch version match"
 else
-echo "Kernel: $current_kernel_version"
-echo "patch_name: $patch_name"
-echo "tarball: $current_kernel_tarball"
-echo ""
-echo "Exact patch match was not found"
-echo "Press [Ctrl+C] key to exit"
-read -p "Press [Enter] key to continue..." tmp
-  patch_name="16iax10h-audio-6.18.patch"
+  echo "Kernel: $current_kernel_version"
+  echo "patch_name: $patch_name"
+  echo "tarball: $current_kernel_tarball"
+  echo ""
+  echo "Exact patch match was not found"
+  echo "Press [Ctrl+C] key to exit"
+  read -p "Press [Enter] key to continue..." tmp
+  patch_name="16iax10h-audio-linux-6.18.patch"
   echo "fallback to patch name:"
   echo "$patch_name"
 fi
@@ -48,16 +48,15 @@ echo "copy firmware"
 cp -f fix/firmware/aw88399_acf.bin /lib/firmware/aw88399_acf.bin
 read -p "Press [Enter] key to continue..." tmp
 
-
 if [ -s $current_kernel_tarball ]; then
-  rm $current_kernel_tarball
+  rm -rf $current_kernel_tarball
 fi
 wget https://cdn.kernel.org/pub/linux/kernel/v6.x/$current_kernel_tarball
 
 echo "linux kernel downloaded"
 
 if [ -s $current_kernel_version ]; then
-  rm $current_kernel_version
+  rm -rf $current_kernel_version
 fi
 
 tar -xf $current_kernel_tarball
@@ -65,12 +64,12 @@ tar -xf $current_kernel_tarball
 cp fix/patches/$patch_name $current_kernel_version/$patch_name
 
 cd $current_kernel_version
-patch -p1 < $patch_name
+patch -p1 <$patch_name
 
 echo "Look, there should be 10 patches"
 read -p "Press [Enter] key to continue..." tmp
 
-cat /proc/config.gz | gunzip > .config
+cat /proc/config.gz | gunzip >.config
 
 setopt .config CONFIG_SND_HDA_SCODEC_AW88399 m
 setopt .config CONFIG_SND_HDA_SCODEC_AW88399_I2C m

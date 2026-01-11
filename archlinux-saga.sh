@@ -4,7 +4,9 @@ echo "THE PROGRAM IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRE
 read -p "Press [Enter] key to continue..." hwX
 
 # Downoading solution
-# git clone https://github.com/nadimkobeissi/16iax10h-linux-sound-saga.git
+git clone https://github.com/nadimkobeissi/16iax10h-linux-sound-saga.git
+cp 16iax10h-linux-sound-saga/README.md 16iax10h-linux-sound-saga/README-lss.md
+cp 16iax10h-linux-sound-saga/* . -r
 
 setopt() {
   # look for/create parametr in file and assigns value to it
@@ -97,6 +99,7 @@ setopt $mkinitcpio_preset ALL_kver ""/boot/vmlinuz-linux-16iax10h-audio""
 setopt $mkinitcpio_preset PRESETS "('default')"
 setopt $mkinitcpio_preset default_image ""/boot/initramfs-linux-16iax10h-audio.img""
 
-# NOTE:
-# sudo limine-entry-tool --add new-linux-16iax10h-audio /boot/cryptichashshit/linux-16iax10h-audio/omarchy_linux.efi /boot/cryptichashshit/linux-16iax10h-audio/vmlinuz-linux-16iax10h-audio "" --comment "Linux for Lenovo Legion 7 16iax10h with Audio Support"
-# sudo limine-entry-tool --add new-linux-16iax10h-audio /boot/cryptichashshit/linux-16iax10h-audio/initramfs-linux-16iax10h-audio.img /boot/cryptichashshit/linux-16iax10h-audio/vmlinuz-linux-16iax10h-audio "" --comment "Linux for Lenovo Legion 7 16iax10h with Audio Support"
+# WARNING:
+# To be tested
+# sudo mkinitcpio -p linux-16iax10h-audio
+# sudo limine-entry-tool --add linux-$current_kernel_tarball-16iax10h-audio /boot/initramfs-linux-16iax10h-audio.img /boot/vmlinuz-linux-16iax10h-audio "" --comment "Linux for Lenovo Legion 7 16iax10h with Audio Support"

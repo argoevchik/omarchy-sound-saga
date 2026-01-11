@@ -6,8 +6,8 @@ read -p "Press [Enter] key to continue..." hwX
 # touch /etc/modprobe.d/inteldsp.conf
 # setopt /etc/modprobe.d/inteldsp.conf snd_intel_dspcfg.dsp_driver 3
 
-cp -f fix/ucm2/HiFi-analog.conf /usr/share/alsa/ucm2/HDA/HiFi-analog.conf
-cp -f fix/ucm2/HiFi-mic.conf /usr/share/alsa/ucm2/HDA/HiFi-mic.conf
+sudo cp -f fix/ucm2/HiFi-analog.conf /usr/share/alsa/ucm2/HDA/HiFi-analog.conf
+sudo cp -f fix/ucm2/HiFi-mic.conf /usr/share/alsa/ucm2/HDA/HiFi-mic.conf
 
 alsaucm listcards
 
@@ -15,7 +15,8 @@ echo "look for something like"
 echo "hw:X"
 echo "LENOVO-83F5-LegionPro716IAX10H-LNVNB161216"
 echo "enter correct X from hw:X line"
-read -p "Press [Enter] key to continue..." hwX
+read -p "hw: " hwX
+read -p "Press [Enter] key to continue..." tmp
 
 alsaucm -c hw:$hwX reset
 alsaucm -c hw:$hwX reload
@@ -23,3 +24,9 @@ systemctl --user restart pipewire pipewire-pulse wireplumber
 amixer sset -c $hwX Master 100%
 amixer sset -c $hwX Headphone 100%
 amixer sset -c $hwX Speaker 100%
+
+echo $hwX
+
+echo "Make shure to update nvidia-open-dkms package with"
+echo "sudo pacman -Sy nvidia-open-dkms"
+echo "this will update and regenerate necessary files"

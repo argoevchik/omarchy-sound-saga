@@ -5,7 +5,7 @@ read -p "Press [Enter] key to continue..." hwX
 
 # Downoading solution
 git clone https://github.com/nadimkobeissi/16iax10h-linux-sound-saga.git
-cp 16iax10h-linux-sound-saga/README.md 16iax10h-linux-sound-saga/README-lss.md
+mv 16iax10h-linux-sound-saga/README.md 16iax10h-linux-sound-saga/README-LSS.md
 cp 16iax10h-linux-sound-saga/* . -r
 
 setopt() {
@@ -16,7 +16,7 @@ setopt() {
   val=$3
 
   if grep -q "^$key=" "$file"; then
-    sed -i "s/^$key=.*/$key=$val/" "$file"
+    sed -i "s|^$key=.*|$key=$val|" "$file"
   else
     echo "$key=$val" >>"$file"
   fi
@@ -93,6 +93,7 @@ read -p "Press [Enter] key to continue..." tmp
 sudo cp -f arch/x86/boot/bzImage /boot/vmlinuz-linux-16iax10h-audio
 
 sudo cp /etc/mkinitcpio.d/linux.preset /etc/mkinitcpio.d/linux-16iax10h-audio.preset
+touch /etc/mkinitcpio.d/linux-16iax10h-audio.preset
 
 mkinitcpio_preset=/etc/mkinitcpio.d/linux-16iax10h-audio.preset
 setopt $mkinitcpio_preset ALL_kver ""/boot/vmlinuz-linux-16iax10h-audio""

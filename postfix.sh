@@ -1,10 +1,10 @@
 #!/bin/bash
 
 echo "THE PROGRAM IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU. SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION."
-read -p "Press [Enter] key to continue..." hwX
+read -p "Press [Enter] key to continue..." tmp
 
-# touch /etc/modprobe.d/inteldsp.conf
-# setopt /etc/modprobe.d/inteldsp.conf snd_intel_dspcfg.dsp_driver 3
+echo "WARNING: You must set your volume to 100% for correct results"
+read -p "Press [Enter] key to continue..." tmp
 
 sudo cp -f fix/ucm2/HiFi-analog.conf /usr/share/alsa/ucm2/HDA/HiFi-analog.conf
 sudo cp -f fix/ucm2/HiFi-mic.conf /usr/share/alsa/ucm2/HDA/HiFi-mic.conf
@@ -16,7 +16,6 @@ echo "hw:X"
 echo "LENOVO-83F5-LegionPro716IAX10H-LNVNB161216"
 echo "enter correct X from hw:X line"
 read -p "hw: " hwX
-read -p "Press [Enter] key to continue..." tmp
 
 alsaucm -c hw:$hwX reset
 alsaucm -c hw:$hwX reload
@@ -25,8 +24,7 @@ amixer sset -c $hwX Master 100%
 amixer sset -c $hwX Headphone 100%
 amixer sset -c $hwX Speaker 100%
 
-echo $hwX
+sudo pacman -Sy nvidia-open-dkms
 
-echo "Make shure to update nvidia-open-dkms package with"
-echo "sudo pacman -Sy nvidia-open-dkms"
-echo "this will update and regenerate necessary files"
+echo "if there no errors with script, BUT"
+echo "you still have problems with sound - try reboot"

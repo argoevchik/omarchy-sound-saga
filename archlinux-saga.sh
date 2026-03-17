@@ -37,7 +37,7 @@ else
   echo "Exact patch match was not found"
   echo "Press [Ctrl+C] key to exit"
   read -p "Press [Enter] key to continue..." tmp
-  patch_name="16iax10h-audio-linux-6.18.patch"
+  patch_name="16iax10h-audio-linux-6.19.patch"
   echo "fallback to patch name:"
   echo "$patch_name"
 fi

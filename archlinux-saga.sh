@@ -53,7 +53,7 @@ read -p "Press [Enter] key to continue..." tmp
 if [ -s $current_kernel_tarball ]; then
   rm -rf $current_kernel_tarball
 fi
-wget https://cdn.kernel.org/pub/linux/kernel/v6.x/$current_kernel_tarball
+wget https://cdn.kernel.org/pub/linux/kernel/v7.x/$current_kernel_tarball
 
 echo "linux kernel downloaded"
 
